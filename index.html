@@ -41,9 +41,76 @@
         }
 
         /* Responsiveness: ensure cards are stacked on smaller screens */
-        @media (max-width: 768px) {
+        @media (max-width: 1024px) {
             .service-card {
                 margin-bottom: 16px;
+            }
+        }
+
+        /* Ensures the container sizes well on mobile devices */
+        @media (max-width: 768px) {
+            header .container {
+                padding: 1rem;
+            }
+
+            /* Adjust the layout of the Hero Section */
+            #home h2 {
+                font-size: 2.5rem;
+            }
+
+            #home p {
+                font-size: 1rem;
+            }
+
+            /* Adjust the button size for small screens */
+            .mt-6 .flex {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .mt-6 .flex a {
+                width: 100%;
+                text-align: center;
+            }
+
+            /* Adjust service card grid for mobile */
+            .grid {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            /* Adjust image in About Section */
+            #about .md\\:w-1\\/2 img {
+                width: 100%;
+            }
+
+            /* Stack doctors section cards on smaller screens */
+            .grid.md\\:grid-cols-3 {
+                grid-template-columns: 1fr;
+            }
+
+            /* Contact form layout adjustments */
+            .space-y-6 {
+                gap: 1.5rem;
+            }
+
+            .space-y-6 .flex {
+                flex-direction: column;
+            }
+
+            /* Adjust the footer font size */
+            footer p {
+                font-size: 0.875rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #home h2 {
+                font-size: 2rem;
+            }
+
+            #home p {
+                font-size: 0.875rem;
             }
         }
     </style>
@@ -56,7 +123,7 @@
         <div class="container mx-auto flex flex-col items-center py-4 px-6">
             <h1 class="text-2xl font-bold text-blue-600 mb-4">MediCare Hospital</h1>
             <nav>
-                <ul class="flex space-x-4">
+                <ul class="flex flex-wrap justify-center space-x-4">
                     <li>
                         <a href="#home"
                             class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
@@ -92,7 +159,7 @@
             <h2 class="text-5xl font-extrabold text-blue-700">Welcome to MediCare Hospital</h2>
             <p class="text-xl text-gray-800 max-w-xl">Your health is our top priority. We offer the latest in
                 healthcare, with personalized care and cutting-edge medical technology.</p>
-            <div class="mt-6 flex justify-center space-x-4">
+            <div class="mt-6 flex flex-wrap justify-center gap-4">
                 <a href="#services"
                     class="inline-block bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300" data-target="services">Our
                     Services</a>
@@ -181,6 +248,7 @@
             </div>
         </div>
     </section>
+
     <!-- About Us Section -->
     <section id="about" class="bg-gray-100 py-16">
         <div class="container mx-auto flex flex-col md:flex-row items-center">
@@ -190,15 +258,16 @@
                     offering comprehensive health services with state-of-the-art facilities.</p>
             </div>
             <div class="md:w-1/2 mt-8 md:mt-0">
-                <img src="assets/hospital.jpg" alt="Hospital Image" class="rounded-lg shadow-md">
+                <img src="assets/hospital.jpg" alt="Hospital Image" class="rounded-lg shadow-md w-full">
             </div>
         </div>
     </section>
+
     <!-- Doctors Section -->
     <section class="py-16">
         <div class="container mx-auto text-center">
             <h3 class="text-3xl font-bold text-gray-800">Our Doctors</h3>
-            <div class="grid md:grid-cols-3 gap-8 mt-8">
+            <div class="grid md:grid-cols-3 gap-8 mt-8 sm:grid-cols-1">
                 <div class="bg-white shadow-md rounded-lg p-6">
                     <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor" class="rounded-full mx-auto">
                     <h4 class="mt-4 text-xl font-bold">Dr. John Doe</h4>
@@ -219,6 +288,7 @@
             </div>
         </div>
     </section>
+
     <!-- Contact Section -->
     <section id="contact" class="bg-blue-600 text-white py-16">
         <div class="container mx-auto text-center px-6 lg:px-0">
@@ -248,10 +318,12 @@
             </form>
         </div>
     </section>
+
     <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 text-center py-4">
         <p>&copy; 2025 MediCare Hospital. All Rights Reserved.</p>
     </footer>
+
     <!-- JavaScript to prevent # from showing -->
     <script>
         document.querySelectorAll('a[data-target]').forEach(anchor => {
@@ -267,6 +339,7 @@
             });
         });
     </script>
+
     <script>
         function openModal(serviceId) {
             document.getElementById(serviceId).classList.remove('hidden');
