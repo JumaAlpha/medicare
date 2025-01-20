@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medical Hospital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        html,
+        body {
+            scroll-behavior: smooth;
+            cursor: url('assets/syringe.png'), auto;
+        }
+
+        .service-card {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .service-icon {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* Animation on scroll */
+        .service-card {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+
+        .service-card.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Responsiveness: ensure cards are stacked on smaller screens */
+        @media (max-width: 768px) {
+            .service-card {
+                margin-bottom: 16px;
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-gray-50">
+    <!-- Header -->
+    <script src="https://kit.fontawesome.com/a076d05399.js"></script>
+    <header class="bg-white text-gray-800 shadow-md sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col items-center py-4 px-6">
+            <h1 class="text-2xl font-bold text-blue-600 mb-4">MediCare Hospital</h1>
+            <nav>
+                <ul class="flex space-x-4">
+                    <li>
+                        <a href="#home"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                            data-target="home">Home</a>
+                    </li>
+                    <li>
+                        <a href="#services"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                            data-target="services">Services</a>
+                    </li>
+                    <li>
+                        <a href="#about"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                            data-target="about">About</a>
+                    </li>
+                    <li>
+                        <a href="#contact"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                            data-target="contact">Contact</a>
+                    </li>
+                    <li>
+                        <a href="blog.html"
+                            class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                            >Blog</a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <!-- Hero Section -->
+    <section id="home" class="bg-gradient-to-r from-blue-100 via-blue-200 to-blue-300 py-20">
+        <div class="container mx-auto text-center flex flex-col items-center space-y-6">
+            <h2 class="text-5xl font-extrabold text-blue-700">Welcome to MediCare Hospital</h2>
+            <p class="text-xl text-gray-800 max-w-xl">Your health is our top priority. We offer the latest in
+                healthcare, with personalized care and cutting-edge medical technology.</p>
+            <div class="mt-6 flex justify-center space-x-4">
+                <a href="#services"
+                    class="inline-block bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300" data-target="services">Our
+                    Services</a>
+                <a href="#contact"
+                    class="inline-block bg-blue-600 text-white px-8 py-4 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition duration-300" data-target="contact">Book
+                    an Appointment</a>
+            </div>
+        </div>
+    </section>
+    <!-- Services Section -->
+    <section id="services" class="py-16 bg-gray-50">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-800 mb-8">Our Services</h3>
+            <!-- Service Cards Grid -->
+            <div class="grid md:grid-cols-3 gap-8 mt-8 sm:grid-cols-1 carousel-wrapper">
+                <!-- Service 1: General Checkup -->
+                <div
+                    class="service-card bg-white shadow-lg rounded-lg p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-blue-50">
+                    <div class="service-icon mb-4 text-4xl text-blue-600">
+                        <i class="fas fa-stethoscope"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-blue-600 mb-2">General Checkup</h4>
+                    <p class="text-gray-600 mb-4">Routine health examinations to ensure your well-being.</p>
+                    <button
+                        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition"
+                        onclick="openModal('generalCheckup')">Learn More</button>
+                </div>
+                <!-- Service 2: Pediatrics -->
+                <div
+                    class="service-card bg-white shadow-lg rounded-lg p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-blue-50">
+                    <div class="service-icon mb-4 text-4xl text-blue-600">
+                        <i class="fas fa-baby"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-blue-600 mb-2">Pediatrics</h4>
+                    <p class="text-gray-600 mb-4">Comprehensive care for your children from birth to adolescence.</p>
+                    <button
+                        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition"
+                        onclick="openModal('pediatrics')">Learn More</button>
+                </div>
+                <!-- Service 3: Emergency Care -->
+                <div
+                    class="service-card bg-white shadow-lg rounded-lg p-6 transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:bg-blue-50">
+                    <div class="service-icon mb-4 text-4xl text-blue-600">
+                        <i class="fas fa-ambulance"></i>
+                    </div>
+                    <h4 class="text-xl font-bold text-blue-600 mb-2">Emergency Care</h4>
+                    <p class="text-gray-600 mb-4">24/7 support for urgent medical needs and emergencies.</p>
+                    <button
+                        class="inline-block bg-blue-600 text-white px-6 py-2 rounded-full text-lg font-medium shadow-lg hover:bg-blue-700 transition"
+                        onclick="openModal('emergencyCare')">Learn More</button>
+                </div>
+            </div>
+        </div>
+        <!-- Modals -->
+        <!-- General Checkup Modal -->
+        <div id="generalCheckup"
+            class="modal hidden fixed z-50 inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+            <div class="modal-content bg-white p-8 rounded-lg w-11/12 max-w-lg">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">General Checkup</h2>
+                <p>Our general checkup service includes a comprehensive health examination to monitor and maintain your
+                    overall well-being. It includes routine tests, screenings, and more.</p>
+                <button onclick="closeModal('generalCheckup')"
+                    class="mt-4 px-6 py-2 bg-red-600 text-white rounded-full">Close</button>
+            </div>
+        </div>
+        <!-- Pediatrics Modal -->
+        <div id="pediatrics"
+            class="modal hidden fixed z-50 inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+            <div class="modal-content bg-white p-8 rounded-lg w-11/12 max-w-lg">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">Pediatrics</h2>
+                <p>We offer pediatric care from birth to adolescence. Our pediatric specialists ensure the health and
+                    development of your children with compassionate care and expertise.</p>
+                <button onclick="closeModal('pediatrics')"
+                    class="mt-4 px-6 py-2 bg-red-600 text-white rounded-full">Close</button>
+            </div>
+        </div>
+        <!-- Emergency Care Modal -->
+        <div id="emergencyCare"
+            class="modal hidden fixed z-50 inset-0 bg-gray-900 bg-opacity-50 flex justify-center items-center">
+            <div class="modal-content bg-white p-8 rounded-lg w-11/12 max-w-lg">
+                <h2 class="text-2xl font-bold text-blue-600 mb-4">Emergency Care</h2>
+                <p>Our emergency care services are available 24/7 to handle urgent medical conditions, injuries, and
+                    other critical health issues. Our team is ready to assist you whenever you need it.</p>
+                <button onclick="closeModal('emergencyCare')"
+                    class="mt-4 px-6 py-2 bg-red-600 text-white rounded-full">Close</button>
+            </div>
+        </div>
+    </section>
+    <!-- About Us Section -->
+    <section id="about" class="bg-gray-100 py-16">
+        <div class="container mx-auto flex flex-col md:flex-row items-center">
+            <div class="md:w-1/2">
+                <h3 class="text-3xl font-bold text-gray-800">About Us</h3>
+                <p class="mt-4 text-gray-600">MediCare Hospital has been at the forefront of medical excellence,
+                    offering comprehensive health services with state-of-the-art facilities.</p>
+            </div>
+            <div class="md:w-1/2 mt-8 md:mt-0">
+                <img src="assets/hospital.jpg" alt="Hospital Image" class="rounded-lg shadow-md">
+            </div>
+        </div>
+    </section>
+    <!-- Doctors Section -->
+    <section class="py-16">
+        <div class="container mx-auto text-center">
+            <h3 class="text-3xl font-bold text-gray-800">Our Doctors</h3>
+            <div class="grid md:grid-cols-3 gap-8 mt-8">
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/men/1.jpg" alt="Doctor" class="rounded-full mx-auto">
+                    <h4 class="mt-4 text-xl font-bold">Dr. John Doe</h4>
+                    <p class="text-gray-600">Cardiologist</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/2.jpg" alt="Doctor"
+                        class="rounded-full mx-auto">
+                    <h4 class="mt-4 text-xl font-bold">Dr. Jane Smith</h4>
+                    <p class="text-gray-600">Pediatrician</p>
+                </div>
+                <div class="bg-white shadow-md rounded-lg p-6">
+                    <img src="https://randomuser.me/api/portraits/women/3.jpg" alt="Doctor"
+                        class="rounded-full mx-auto">
+                    <h4 class="mt-4 text-xl font-bold">Dr. Sarah Johnson</h4>
+                    <p class="text-gray-600">Surgeon</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Contact Section -->
+    <section id="contact" class="bg-blue-600 text-white py-16">
+        <div class="container mx-auto text-center px-6 lg:px-0">
+            <h3 class="text-3xl font-bold mb-4">Contact Us</h3>
+            <p class="mb-8 text-lg">
+                We’re here to help! Reach out to us for appointments or inquiries.
+            </p>
+            <form class="space-y-6 max-w-lg mx-auto">
+                <div class="flex flex-col">
+                    <label for="name" class="text-sm mb-1">Your Name</label>
+                    <input type="text" id="name" placeholder="Enter your full name"
+                        class="w-full px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800">
+                </div>
+                <div class="flex flex-col">
+                    <label for="email" class="text-sm mb-1">Your Email</label>
+                    <input type="email" id="email" placeholder="Enter your email address"
+                        class="w-full px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800">
+                </div>
+                <div class="flex flex-col">
+                    <label for="message" class="text-sm mb-1">Your Message</label>
+                    <textarea id="message" placeholder="Write your message here" rows="5"
+                        class="w-full px-4 py-2 rounded-lg shadow-md focus:outline-none focus:ring-2 focus:ring-blue-400 text-gray-800"></textarea>
+                </div>
+                <button type="submit"
+                    class="w-full bg-white text-blue-600 px-6 py-3 rounded-lg shadow-md hover:bg-gray-200 transition">Send
+                    Message</button>
+            </form>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 text-center py-4">
+        <p>&copy; 2025 MediCare Hospital. All Rights Reserved.</p>
+    </footer>
+    <!-- JavaScript to prevent # from showing -->
+    <script>
+        document.querySelectorAll('a[data-target]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault(); // Prevent default anchor behavior
+                const targetId = this.getAttribute('data-target');
+                const targetElement = document.getElementById(targetId);
+
+                targetElement.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            });
+        });
+    </script>
+    <script>
+        function openModal(serviceId) {
+            document.getElementById(serviceId).classList.remove('hidden');
+        }
+
+        function closeModal(serviceId) {
+            document.getElementById(serviceId).classList.add('hidden');
+        }
+
+        // Scroll Animation for Service Cards
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        const checkScroll = () => {
+            const triggerBottom = window.innerHeight / 5 * 4;
+            serviceCards.forEach(card => {
+                const cardTop = card.getBoundingClientRect().top;
+                if (cardTop < triggerBottom) {
+                    card.classList.add('visible');
+                } else {
+                    card.classList.remove('visible');
+                }
+            });
+        };
+
+        window.addEventListener('scroll', checkScroll);
+        checkScroll(); // Initial check on load
+    </script>
+</body>
+
+</html>
