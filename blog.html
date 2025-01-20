@@ -1,174 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Health Blog | MediCare Hospital</title>
-        <script src="https://cdn.tailwindcss.com"></script>
-        <style>
-    /* Add styles for smooth scrolling */
-    html {
-      scroll-behavior: smooth;
-    }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Health Blog | MediCare Hospital</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Add styles for smooth scrolling */
+      html {
+        scroll-behavior: smooth;
+      }
 
-    /* Style for the full-screen popup */
-    .popup {
-      display: none;
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.6);
-      justify-content: center;
-      align-items: center;
-      z-index: 1000;
-      color: white;
-    }
+      /* Style for the full-screen popup */
+      .popup {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        justify-content: center;
+        align-items: center;
+        z-index: 1000;
+        color: white;
+      }
 
-    .popup-content {
-      background: #fff;
-      color: black;
-      width: 90%;
-      max-width: 700px;
-      padding: 20px;
-      border-radius: 8px;
-      overflow-y: auto;
-      max-height: 80%;
-    }
+      .popup-content {
+        background: #fff;
+        color: black;
+        width: 90%;
+        max-width: 700px;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-y: auto;
+        max-height: 80%;
+      }
 
-    .popup-close {
-      position: absolute;
-      top: 5%;
-      right: 10px;
-      background: #f44336;
-      color: white;
-      border: none;
-      border-radius: 50%;
-      width: 90px;
-      height: 90px;
-      text-align: center;
-      font-size: 36px;
-      cursor: pointer;
-    }
+      .popup-close {
+        position: absolute;
+        top: 5%;
+        right: 10px;
+        background: #f44336;
+        color: white;
+        border: none;
+        border-radius: 50%;
+        width: 90px;
+        height: 90px;
+        text-align: center;
+        font-size: 36px;
+        cursor: pointer;
+      }
 
-    /* Search bar styling */
-    .search-bar {
-      width: 200px;
-      padding: 8px;
-      margin-left: auto;
-      margin-right: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
-    }
-        </style>
-    </head>
-    <body class="bg-gray-100 text-gray-800">
-        <!-- Header -->
-        <header class="bg-white text-gray-800 shadow-md sticky top-0 z-50">
-            <div class="container mx-auto flex flex-col items-center py-4 px-6">
-                <h1 class="text-2xl font-bold text-blue-600 mb-4">MediCare Hospital</h1>
-                <nav class="w-full flex justify-between items-center">
-                    <ul class="flex space-x-4">
-                        <li>
-                            <a href="/" class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition">Home</a>
-                        </li>
-                    </ul>
-                    <!-- Search Bar -->
-                    <input
-                        type="text"
-                        id="searchInput"
-                        class="search-bar"
-                        placeholder="Search..."
-                    >
-                </nav>
+      /* Search Bar styling */
+      .search-bar {
+        width: 200px;
+        padding: 8px;
+        margin-left: auto;
+        margin-right: 10px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+      }
+
+      /* Style for the search results dropdown */
+      .search-results {
+        display: none;
+        position: absolute;
+        z-index: 100;
+        background-color: white;
+        width: 100%;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        border: #f44336 2px solid;
+        max-height: 200px;
+        top: 100%;
+        overflow-y: auto;
+        border-radius: 5px;
+      }
+
+      .search-result-item {
+        padding: 10px;
+        cursor: pointer;
+      }
+
+      .search-result-item:hover {
+        background-color: #f0f0f0;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-100 text-gray-800">
+    <!-- Header -->
+    <header class="bg-white text-gray-800 shadow-md sticky top-0 z-50">
+      <div class="container mx-auto flex flex-col items-center py-4 px-6 relative">
+        <h1 class="text-2xl font-bold text-blue-600 mb-4">MediCare Hospital</h1>
+        <nav class="w-full flex justify-between items-center">
+          <ul class="flex space-x-4">
+            <li>
+              <a
+                href="/"
+                class="bg-blue-600 text-white px-4 py-2 rounded-md shadow hover:bg-blue-700 transition"
+                >Home</a
+              >
+            </li>
+          </ul>
+          <!-- Search Bar -->
+          <input
+            type="text"
+            id="searchInput"
+            class="search-bar"
+            placeholder="Search..."
+            autocomplete="off"
+          />
+          <div id="searchResults" class="search-results"></div>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="bg-blue-200 text-blue-900 py-16 text-center">
+      <h2 class="text-3xl sm:text-4xl font-bold mb-4">Stay Updated with Health Tips and News</h2>
+      <p class="text-lg max-w-2xl mx-auto">
+        Discover the latest health advice, hospital news, and wellness tips to keep you informed and healthy.
+      </p>
+    </section>
+
+    <!-- Blog Section -->
+    <section class="py-12">
+      <div class="container mx-auto px-6">
+        <div
+          id="blogContainer"
+          class="grid gap-8 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1"
+        >
+          <!-- Blog Post 1 -->
+          <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post" data-title="5 Ways to Boost Your Immune System" data-content="Learn how to strengthen your immunity naturally with these effective tips and lifestyle changes.">
+            <img
+              src="assets/immune-system.jpg"
+              alt="Health Post Image"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">
+                5 Ways to Boost Your Immune System
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Learn how to strengthen your immunity naturally with these effective tips and lifestyle changes.
+              </p>
+              <a
+                href="#"
+                class="text-blue-600 hover:underline"
+                onclick="openPopup('5 Ways to Boost Your Immune System', 'Learn how to strengthen your immunity naturally with these effective tips and lifestyle changes...')"
+                >Read More &rarr;</a
+              >
             </div>
-        </header>
-        <!-- Hero Section -->
-        <section class="bg-blue-200 text-blue-900 py-16 text-center">
-            <h2 class="text-4xl font-bold mb-4">Stay Updated with Health Tips and News</h2>
-            <p class="text-lg max-w-2xl mx-auto">
-                Discover the latest health advice, hospital news, and wellness tips to keep you informed and healthy.
-            </p>
-        </section>
-        <!-- Blog Section -->
-        <section class="py-12">
-            <div class="container mx-auto px-6">
-                <div id="blogContainer" class="grid gap-8 lg:grid-cols-3 md:grid-cols-2">
-                    <!-- Blog Post 1 -->
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post">
-                        <img src="assets/immune-system.jpg" alt="Health Post Image" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">5 Ways to Boost Your Immune System</h3>
-                            <p class="text-gray-600 mb-4">Learn how to strengthen your immunity naturally with these effective tips and lifestyle changes.</p>
-                            <a href="#" class="text-blue-600 hover:underline" onclick="openPopup('5 Ways to Boost Your Immune System', 'Learn how to strengthen your immunity naturally with these effective tips and lifestyle changes...')">Read More &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- Blog Post 2 -->
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post">
-                        <img src="assets/flu.jpg" alt="Health Post Image" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">Current Flu Season: What You Need to Know</h3>
-                            <p class="text-gray-600 mb-4">Stay informed about this year's flu season and how to protect yourself and your loved ones.</p>
-                            <a href="#" class="text-blue-600 hover:underline" onclick="openPopup('Current Flu Season: What You Need to Know', 'This year\'s flu season is particularly concerning due to new variants. Here\'s everything you need to know about prevention and symptoms...')">Read More &rarr;</a>
-                        </div>
-                    </div>
-                    <!-- Blog Post 3 -->
-                    <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post">
-                        <img src="assets/mentalhealth.jpg" alt="Health Post Image" class="w-full h-48 object-cover">
-                        <div class="p-6">
-                            <h3 class="text-xl font-bold mb-2">The Importance of Mental Health Awareness</h3>
-                            <p class="text-gray-600 mb-4">Understand why mental health is crucial and how you can support yourself and others.</p>
-                            <a href="#" class="text-blue-600 hover:underline" onclick="openPopup('The Importance of Mental Health Awareness', 'Mental health is just as important as physical health. Learn how to take care of your mind and seek help when necessary...')">Read More &rarr;</a>
-                        </div>
-                    </div>
-                </div>
+          </div>
+
+          <!-- Blog Post 2 -->
+          <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post" data-title="Current Flu Season: What You Need to Know" data-content="This year’s flu season is particularly concerning due to new variants. Here’s everything you need to know about prevention and symptoms...">
+            <img
+              src="assets/flu.jpg"
+              alt="Health Post Image"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">
+                Current Flu Season: What You Need to Know
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Stay informed about this year's flu season and how to protect yourself and your loved ones.
+              </p>
+              <a
+                href="#"
+                class="text-blue-600 hover:underline"
+                onclick="openPopup('Current Flu Season: What You Need to Know', 'This year’s flu season is particularly concerning due to new variants. Here’s everything you need to know about prevention and symptoms...')"
+                >Read More &rarr;</a
+              >
             </div>
-        </section>
-        <!-- Footer -->
-        <footer class="bg-blue-600 text-white py-6">
-            <div class="container mx-auto text-center">
-                <p class="text-sm">&copy; 2025 MediCare Hospital. All Rights Reserved.</p>
+          </div>
+
+          <!-- Blog Post 3 -->
+          <div class="bg-white shadow-md rounded-lg overflow-hidden blog-post" data-title="The Importance of Mental Health Awareness" data-content="Mental health is just as important as physical health. Learn how to take care of your mind and seek help when necessary...">
+            <img
+              src="assets/mentalhealth.jpg"
+              alt="Health Post Image"
+              class="w-full h-48 object-cover"
+            />
+            <div class="p-6">
+              <h3 class="text-xl font-bold mb-2">
+                The Importance of Mental Health Awareness
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Understand why mental health is crucial and how you can support yourself and others.
+              </p>
+              <a
+                href="#"
+                class="text-blue-600 hover:underline"
+                onclick="openPopup('The Importance of Mental Health Awareness', 'Mental health is just as important as physical health. Learn how to take care of your mind and seek help when necessary...')"
+                >Read More &rarr;</a
+              >
             </div>
-        </footer>
-        <!-- Popup Modals -->
-        <div id="popup" class="popup">
-            <div class="popup-content">
-                <button class="popup-close" onclick="closePopup()">&times;</button>
-                <h2 id="popupTitle" class="text-2xl font-bold mb-4"></h2>
-                <p id="popupContent"></p>
-            </div>
+          </div>
         </div>
-        <!-- Script for Popup and Search -->
-        <script>
-    function openPopup(title, content) {
-      // Set the title and content of the popup
-      document.getElementById('popupTitle').innerText = title;
-      document.getElementById('popupContent').innerText = content;
+      </div>
+    </section>
 
-      // Show the popup
-      document.getElementById('popup').style.display = 'flex';
-    }
+    <!-- Footer -->
+    <footer class="bg-blue-600 text-white py-6">
+      <div class="container mx-auto text-center">
+        <p class="text-sm">&copy; 2025 MediCare Hospital. All Rights Reserved.</p>
+      </div>
+    </footer>
 
-    function closePopup() {
-      // Close the popup
-      document.getElementById('popup').style.display = 'none';
-    }
+    <!-- Popup Modals -->
+    <div id="popup" class="popup">
+      <div class="popup-content">
+        <button class="popup-close" onclick="closePopup()">&times;</button>
+        <h2 id="popupTitle" class="text-2xl font-bold mb-4"></h2>
+        <p id="popupContent"></p>
+      </div>
+    </div>
 
-    // Search functionality
-    document.getElementById('searchInput').addEventListener('input', function() {
-      let searchValue = this.value.toLowerCase();
-      let blogPosts = document.querySelectorAll('.blog-post');
+    <!-- Script for Popup and Search -->
+    <script>
+      function openPopup(title, content) {
+        // Set the title and content of the popup
+        document.getElementById("popupTitle").innerText = title;
+        document.getElementById("popupContent").innerText = content;
 
-      blogPosts.forEach(post => {
-        let title = post.querySelector('h3').innerText.toLowerCase();
-        if (title.includes(searchValue)) {
-          post.style.display = 'block';
-        } else {
-          post.style.display = 'none';
-        }
-      });
-    });
-        </script>
-    </body>
+        // Show the popup
+        document.getElementById("popup").style.display = "flex";
+      }
+
+      function closePopup() {
+        // Close the popup
+        document.getElementById("popup").style.display = "none";
+      }
+
+      // Search functionality
+      document
+        .getElementById("searchInput")
+        .addEventListener("input", function () {
+          let searchValue = this.value.toLowerCase();
+          let blogPosts = document.querySelectorAll(".blog-post");
+          let searchResultsContainer = document.getElementById("searchResults");
+          searchResultsContainer.innerHTML = '';  // Clear previous results
+
+          let matchingPosts = 0;
+
+          blogPosts.forEach((post) => {
+            let title = post.getAttribute("data-title").toLowerCase();
+
+            if (title.includes(searchValue)) {
+              matchingPosts++;
+              // Create a new result item
+              let resultItem = document.createElement("div");
+              resultItem.classList.add("search-result-item");
+              resultItem.innerText = post.getAttribute("data-title");
+
+              // Add a click event to open the post
+              resultItem.onclick = function () {
+                openPopup(post.getAttribute("data-title"), post.getAttribute("data-content"));
+                searchResultsContainer.style.display = "none";  // Hide results after clicking
+              };
+
+              searchResultsContainer.appendChild(resultItem);
+            }
+          });
+
+          // Show results only if there are any matching posts
+          if (matchingPosts > 0) {
+            searchResultsContainer.style.display = "block";
+          } else {
+            searchResultsContainer.style.display = "none";
+          }
+        });
+    </script>
+  </body>
 </html>
